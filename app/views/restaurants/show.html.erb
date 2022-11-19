@@ -9,3 +9,19 @@
 
   <%= button_to "Destroy this restaurant", @restaurant, method: :delete %>
 </div>
+
+<ul>
+  <% if @restaurant.reviews %>
+    <% @restaurant.reviews.each do |review| %>
+      <li><%= review.content %> |
+        <%= link_to "Delete",
+          review_path(review),
+          data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+        %>
+      </li>
+    <% end %>
+  <% else %>
+    <li>No reviews yet</li>
+  <% end %>
+</ul>
+<%= link_to "Create a new review", new_restaurant_review_path(@restaurant) %>
